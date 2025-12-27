@@ -14,15 +14,18 @@
   "license": "MIT",
   "author": "skellierg",
   "type": "module",
-  "main": "dist/main.js",
+  "main": "dist/server/main.js",
   "scripts": {
-    "debug": "node ./dist/main.js --debug",
-    "start": "node ./dist/main.js",
-    "build": "tsc"
+    "dev:server": "tsc --watch & nodemon dist/server/main.js",
+    "dev:client": "npm --prefix client run dev",
+    "build:server": "tsc",
+    "build:client": "npm --prefix client run build",
+    "build": "npm run build:server & npm run build:client"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
     "@types/node": "24.10.2",
+    "nodemon": "^3.1.11",
     "typescript": "5.9.3"
   },
   "dependencies": {

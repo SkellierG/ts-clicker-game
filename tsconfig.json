@@ -41,6 +41,6 @@
   },
 
   // Limit the TS inputs to the src folder so the compiler finds your files
-  "include": ["client/**/*", "server/**/*"],
+  "include": ["server/**/*"],
   "exclude": ["dist", "node_modules"]
 }
