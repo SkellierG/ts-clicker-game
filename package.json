@@ -1,0 +1,31 @@
+{
+  "name": "ts-clicker-game",
+  "version": "0.0.1",
+  "description": "node typescript web server clicker game",
+  "keywords": [
+    "game",
+    "clicker",
+    "typrescript",
+    "nodejs",
+    "backend",
+    "web",
+    "fun"
+  ],
+  "license": "MIT",
+  "author": "skellierg",
+  "type": "module",
+  "main": "dist/main.js",
+  "scripts": {
+    "debug": "node ./dist/main.js --debug",
+    "start": "node ./dist/main.js",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "24.10.2",
+    "typescript": "5.9.3"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
