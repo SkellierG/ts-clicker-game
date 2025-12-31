@@ -93,6 +93,4 @@ class DispatcherSingleton implements IDispatcher {
 
 const AppDispatcher = DispatcherSingleton.instance;
 
-(window as any).AppDispatcher = AppDispatcher;
-
 export { AppDispatcher };
