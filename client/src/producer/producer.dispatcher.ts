@@ -2,29 +2,43 @@ import { AppDispatcher } from "../utils/dispatcher";
 import { ProducerModel } from "./producer.model";
 import { ProducerView } from "./producer.view";
 
-class ProducerProducto extends ProducerModel {
+class ProducerIncrementOne extends ProducerModel {
   produce(): void {
     //console.log(this.producer.quantity)
     this.producer.quantity++;
   }
 }
 
-const producerProducto = new ProducerProducto({
-  id: "P_0000",
-  name: "producto",
-  description: "Un producto abstracto para probar la libreria",
+const cazar = new ProducerIncrementOne({
+  id: "P_0",
+  name: "Cazar",
+  description: "Ir a cazar unos animalillos",
   quantity: 0
 })
 
-const producerView = new ProducerView(producerProducto);
-
-AppDispatcher.register(payload => {
-  if (payload.action === 'produce') {
-    //console.log("produce executes")
-    producerProducto.produce();
-  }
-
-  producerView.render();
+const talar = new ProducerIncrementOne({
+  id: "P_1",
+  name: "Talar",
+  description: "Ir a talar al bosque por un poco de madera",
+  quantity: 0
 })
 
-export { producerView }
+const cazarProducerView = new ProducerView(cazar);
+const talarProducerView = new ProducerView(talar);
+
+
+AppDispatcher.register(payload => {
+  if (payload.action === 'produce-cazar') {
+    //console.log("produce executes")
+    cazar.produce();
+  }
+
+  if (payload.action === 'produce-talar') {
+    talar.produce();
+  }
+
+  cazarProducerView.render('#producer-cazar');
+  talarProducerView.render('#producer-talar')
+})
+
+export { cazarProducerView, talarProducerView }

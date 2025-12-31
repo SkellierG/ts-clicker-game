@@ -1,5 +1,5 @@
 interface IView {
-  render(): void;
+  render(HTMLreference: string): void;
 };
 
 export type { IView };

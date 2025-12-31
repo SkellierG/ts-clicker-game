@@ -10,8 +10,8 @@ class ProducerView implements IView {
     this.model = model;
   }
 
-  render(): void {
-    const container = $('#producer') as HTMLElement;
+  render(HTMLreference: string): void {
+    const container = $(HTMLreference) as HTMLElement;
 
     console.log("Producer View:", this.model.producer.quantity)
 
@@ -20,7 +20,7 @@ class ProducerView implements IView {
       <p>${this.model.producer.description}</p>
       <span class="producer-span">${this.model.producer.quantity}</span>
       <br>
-      <button onClick="window.AppDispatcher.dispatch({ action: 'produce' })">CLICK ME</button>
+      <button onClick="window.AppDispatcher.dispatch({ action: 'produce-${this.model.producer.name.toLowerCase()}' })">CLICK ME</button>
     </div>
     `
 
