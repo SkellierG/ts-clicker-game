@@ -1,11 +1,29 @@
 import { AppDispatcher } from "../utils/dispatcher";
 import { ProducerModel } from "./producer.model";
-import { ProducerView } from "./producer.view";
+import { ProducerButton, ProducerPasive } from "./producer.view";
 
 class ProducerIncrementOne extends ProducerModel {
   produce(): void {
     //console.log(this.producer.quantity)
     this.producer.quantity++;
+  }
+}
+
+class ProducerIncrementPasive extends ProducerModel {
+  _isProducing: boolean = false;
+
+  _pasiveProduce(): void {
+    this.producer.quantity++
+    setTimeout(() => {
+      this._pasiveProduce();
+    }, 1000)
+  }
+
+  produce(): void {
+    if (!this._isProducing) {
+      this._isProducing = true;
+      this._pasiveProduce();
+    }
   }
 }
 
@@ -23,9 +41,23 @@ const talar = new ProducerIncrementOne({
   quantity: 0
 })
 
-const cazarProducerView = new ProducerView(cazar);
-const talarProducerView = new ProducerView(talar);
+const cultivar = new ProducerIncrementPasive({
+  id: "P_2",
+  name: "Cultivar",
+  description: "Un pequeño cultivo que produce comida pasivamente",
+  quantity: 0,
+})
 
+const cazarProducerButton = new ProducerButton(cazar);
+const talarProducerButton = new ProducerButton(talar);
+const cultivarProducerPasive = new ProducerPasive(cultivar);
+
+function pasiveRender(seconds: number) {
+  setTimeout(() => {
+    cultivarProducerPasive.render('#producer-cultivar');
+    pasiveRender(seconds);
+  }, seconds);
+}
 
 AppDispatcher.register(payload => {
   if (payload.action === 'produce-cazar') {
@@ -37,8 +69,14 @@ AppDispatcher.register(payload => {
     talar.produce();
   }
 
-  cazarProducerView.render('#producer-cazar');
-  talarProducerView.render('#producer-talar')
+  if (payload.action === 'produce-cultivar') {
+    console.log('produce-cultivar')
+    cultivar.produce();
+    pasiveRender(100)
+  }
+
+  cazarProducerButton.render('#producer-cazar');
+  talarProducerButton.render('#producer-talar');
 })
 
-export { cazarProducerView, talarProducerView }
+export { cazarProducerButton, talarProducerButton, cultivarProducerPasive }

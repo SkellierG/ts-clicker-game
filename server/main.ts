@@ -11,9 +11,13 @@ app.get("/health", (req: Request, res: Response) => {
   res.status(200).send({ status: "ok" });
 })
 
-app.listen(8080, 'localhost', (err?: Error) => {
+const IP: string = '0.0.0.0';
+const PORT: number = 8080;
+
+
+app.listen(PORT, IP, (err?: Error) => {
   if (err) {
     console.error('Error starting server:', err);
   }
-  console.log('server is lintening on http://localhost:8080');
+  console.log(`server is lintening on http://${IP}:${PORT}`);
 })
