@@ -10,6 +10,8 @@ class DispatcherSingleton implements IDispatcher {
 
   isDispatching: boolean;
 
+  static _instance: DispatcherSingleton;
+
   constructor() {
     this._callbacks = {};
     this._isPending = {};
@@ -17,6 +19,13 @@ class DispatcherSingleton implements IDispatcher {
     this._pendingPayload = {};
     this._lastId = 0;
     this.isDispatching = false;
+  }
+
+  static get instance(): DispatcherSingleton {
+    if (!DispatcherSingleton._instance) {
+      DispatcherSingleton._instance = new DispatcherSingleton();
+    }
+    return DispatcherSingleton._instance;
   }
 
   _invokeCallback(id: number): void {
@@ -82,7 +91,7 @@ class DispatcherSingleton implements IDispatcher {
 
 }
 
-const AppDispatcher = new DispatcherSingleton();
+const AppDispatcher = DispatcherSingleton.instance;
 
 (window as any).AppDispatcher = AppDispatcher;
 
