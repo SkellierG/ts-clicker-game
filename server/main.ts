@@ -14,7 +14,6 @@ app.get("/health", (req: Request, res: Response) => {
 const IP: string = '0.0.0.0';
 const PORT: number = 8080;
 
-
 app.listen(PORT, IP, (err?: Error) => {
   if (err) {
     console.error('Error starting server:', err);
